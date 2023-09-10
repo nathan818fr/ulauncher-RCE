@@ -48,7 +48,8 @@ _or_
   This will prevent the vulnerability from being exploited from a website
   (which is the real threat here).
   However, it will still be possible to exploit the vulnerability locally for
-  privilege escalation (already discussed here [Ulauncher issue #456][5]).
+  privilege escalation (already discussed here [Ulauncher issue #456][5]).\
+  This solution is implemented by [this patch](./Allow-only-trusted-origins-to-access-the-WebSocket-API.patch).
 
 The use of pickle wouldn't be an issue if only same-privilege users could use
 the WebSocket API.

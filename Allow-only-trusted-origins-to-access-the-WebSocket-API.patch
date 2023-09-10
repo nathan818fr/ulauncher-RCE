@@ -1,0 +1,38 @@
+From b20c2121c176806630001c23dd3db850ee1370d4 Mon Sep 17 00:00:00 2001
+From: Nathan Poirier <nathan@poirier.io>
+Date: Sun, 10 Sep 2023 13:38:49 +0200
+Subject: [PATCH 1/1] Allow only trusted origins to access the WebSocket API
+
+This prevents websites from connecting to and using the API (since there is no same-origin policy for WebSockets)
+---
+ ulauncher/utils/SimpleWebSocketServer.py | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/ulauncher/utils/SimpleWebSocketServer.py b/ulauncher/utils/SimpleWebSocketServer.py
+index 0f2317dc..5e287ae4 100644
+--- a/ulauncher/utils/SimpleWebSocketServer.py
++++ b/ulauncher/utils/SimpleWebSocketServer.py
+@@ -26,6 +26,7 @@ import codecs
+ import traceback
+ from collections import deque
+ from select import select
++from urllib.parse import urlparse
+ 
+ __all__ = ['WebSocket',
+            'SimpleWebSocketServer',
+@@ -262,6 +263,12 @@ class WebSocket:
+             if b'\r\n\r\n' in self.headerbuffer:
+                 self.request = HTTPRequest(self.headerbuffer)
+ 
++                # prevent websites from connecting to websocket
++                origin = self.request.headers["Origin"] or ""
++                origin_hostname = urlparse(origin).hostname
++                if not origin_hostname in ("localhost", "127.0.0.1", "::1"):
++                    raise Exception("origin not allowed: %s" % origin)
++
+                 # handshake rfc 6455
+                 try:
+                     key = self.request.headers['Sec-WebSocket-Key']
+-- 
+2.39.2
+
