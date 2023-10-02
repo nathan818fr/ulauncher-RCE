@@ -1,9 +1,11 @@
-# Ulauncher RCE
+# Ulauncher RCE • GHSA-5vr2-67v3-4c7f
+
+**✅ Fixed in version 5.15.4**
 
 ## Description
 
-Ulauncher v5 is vulnerable to a 1-click remote code execution (RCE)
-vulnerability due to:
+Ulauncher v5 (from 3.0.0 to 5.15.3) is vulnerable to a 1-click remote code
+execution (RCE) vulnerability due to:
 
 - A publicly accessible WebSocket API, which can be used from any website
   opened in a browser (since there is no same-origin policy for WebSockets).
@@ -61,6 +63,7 @@ cannot execute code during deserialization (already discussed here
 
 - 2023-09-10: Vulnerability discovered.
 - 2023-09-10: Vulnerability reported to the Ulauncher team.
+- 2023-10-02: Vulnerability fixed in version [5.15.4][7].
 
 ## Disclaimer
 
@@ -74,3 +77,4 @@ The author is not responsible for any damages or illegal use of this code.
 [4]: https://ext.ulauncher.io/
 [5]: https://github.com/Ulauncher/Ulauncher/issues/456
 [6]: https://github.com/Ulauncher/Ulauncher/issues/1032
+[7]: https://github.com/Ulauncher/Ulauncher/releases/tag/5.15.4
